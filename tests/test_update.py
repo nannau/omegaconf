@@ -315,7 +315,7 @@ def test_update(cfg: Any, key: str, value: Any, expected: Any) -> None:
             False,
             {"x": {"y": [1, 2, 3]}, "a[b]": {"c": 20}},
             id="list_key:index:update:set_with_bracket",
-        )
+        ),
     ],
 )
 def test_update_merge_set(
@@ -373,12 +373,48 @@ def test_update_merge_by_default() -> None:
         ),
         param({}, ("a", "b"), 10, {"a": {"b": 10}}, id="tuple_key_add_value"),
         param({}, ["a", "b"], 10, {"a": {"b": 10}}, id="list_key_add_value"),
-        param({}, ("a:b", "c"), {"d": 10}, {"a:b": {"c": {"d": 10}}}, id="tuple_key_add_dict_with_colon"),
-        param({}, ("a:b", "c"), {"d": 10}, {"a:b": {"c": {"d": 10}}}, id="tuple_key_add_dict_with_dot"),
-        param({}, ("a[b]", "c"), {"d": 10}, {"a[b]": {"c": {"d": 10}}}, id="tuple_key_add_dict_with_bracket"),
-        param({}, ["a:b", "c"], {"d": 10}, {"a:b": {"c": {"d": 10}}}, id="list_key_add_dict_with_colon"),
-        param({}, ["a.b", "c"], {"d": 10}, {"a.b": {"c": {"d": 10}}}, id="list_key_add_dict_with_dot"),
-        param({}, ["a[b]", "c"], {"d": 10}, {"a[b]": {"c": {"d": 10}}}, id="list_key_add_dict_with_bracket"),
+        param(
+            {},
+            ("a:b", "c"),
+            {"d": 10},
+            {"a:b": {"c": {"d": 10}}},
+            id="tuple_key_add_dict_with_colon",
+        ),
+        param(
+            {},
+            ("a:b", "c"),
+            {"d": 10},
+            {"a:b": {"c": {"d": 10}}},
+            id="tuple_key_add_dict_with_dot",
+        ),
+        param(
+            {},
+            ("a[b]", "c"),
+            {"d": 10},
+            {"a[b]": {"c": {"d": 10}}},
+            id="tuple_key_add_dict_with_bracket",
+        ),
+        param(
+            {},
+            ["a:b", "c"],
+            {"d": 10},
+            {"a:b": {"c": {"d": 10}}},
+            id="list_key_add_dict_with_colon",
+        ),
+        param(
+            {},
+            ["a.b", "c"],
+            {"d": 10},
+            {"a.b": {"c": {"d": 10}}},
+            id="list_key_add_dict_with_dot",
+        ),
+        param(
+            {},
+            ["a[b]", "c"],
+            {"d": 10},
+            {"a[b]": {"c": {"d": 10}}},
+            id="list_key_add_dict_with_bracket",
+        ),
     ],
 )
 def test_update_force_add(cfg: Any, key: str, value: Any, expected: Any) -> None:
