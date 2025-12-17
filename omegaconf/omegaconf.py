@@ -697,7 +697,7 @@ class OmegaConf:
     @staticmethod
     def update(
         cfg: Container,
-        key: str,
+        key: Union[str, List[str], Tuple[str, ...]],
         value: Any = None,
         *,
         merge: bool = True,
@@ -707,7 +707,7 @@ class OmegaConf:
         Updates a dot separated key sequence to a value
 
         :param cfg: input config to update
-        :param key: key to update (can be a dot separated path)
+        :param key: key to update (can be a dot separated path or list/tuple)
         :param value: value to set, if value if a list or a dict it will be merged or set
             depending on merge_config_values
         :param merge: If value is a dict or a list, True (default) to merge
@@ -715,7 +715,11 @@ class OmegaConf:
         :param force_add: insert the entire path regardless of Struct flag or Structured Config nodes.
         """
 
-        split = split_key(key)
+        if isinstance(key, (list, tuple)):
+            split = list(key)
+        else:
+            split = split_key(key)
+
         root = cfg
         for i in range(len(split) - 1):
             k = split[i]

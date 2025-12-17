@@ -769,7 +769,7 @@ OmegaConf.select
 
 OmegaConf.update
 ^^^^^^^^^^^^^^^^
-``OmegaConf.update()`` allows you to update values in your config using either a dot-notation or brackets to denote sub-keys.
+``OmegaConf.update()`` allows you to update values in your config using either a dot-notation, brackets, or an explicit list/tuple to denote sub-keys.
 
 The merge flag controls the behavior if the input is a ``dict`` or a ``list``.
 If ``merge=True`` true (the default), dicts and lists are merged instead of being assigned.
@@ -787,6 +787,9 @@ The ``force_add`` flag ensures that the path is created even if it will result i
     >>> # note that merge is True by default, so you don't really need it here.
     >>> OmegaConf.update(cfg, "foo[bar]", {"oompa" : 40}, merge=True)
     >>> assert cfg.foo.bar == {"zonk" : 30, "oompa" : 40}
+    >>> # Merge dictionary value (using list of keys)
+    >>> OmegaConf.update(cfg, ["foo", "bar"], {"loompa": 50}, merge=True)
+    >>> assert cfg.foo.bar == {"zonk" : 30, "oompa" : 40, "loompa": 50}
     >>> # force_add ignores nodes in struct mode or Structured Configs nodes 
     >>> # and updates anyway, inserting keys as needed.
     >>> OmegaConf.set_struct(cfg, True)
